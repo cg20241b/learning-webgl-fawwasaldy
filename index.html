@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Rectangle</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+        .container {
+            width: 800px; /* Set the width of the rectangle container */
+            height: 600px; /* Set the height of the rectangle container */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333; /* Optional: background color for the container */
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="container">
+        <svg id="svg" viewBox="0 0 800 600">
+            <rect x="200" y="150" width="400" height="300" stroke="#00ffff" stroke-width="10" fill="none" />
+        </svg>
+    </div>
+    <script>
+        function drawRectangle() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            if (!ctx) {
+                alert('Unable to initialize 2D context. Your browser may not support it.');
+                return;
+            }
+
+            // Handle device pixel ratio
+            const dpr = window.devicePixelRatio || 1;
+            // const dpr = 10;
+            canvas.width = canvas.clientWidth * dpr;
+            canvas.height = canvas.clientHeight * dpr;
+            ctx.scale(dpr, dpr);
+
+            // Set the rectangle properties
+            const rectWidth = 400;
+            const rectHeight = 300;
+            const rectX = (canvas.clientWidth - rectWidth) / 2;
+            const rectY = (canvas.clientHeight - rectHeight) / 2;
+
+            // Draw the rectangle outline
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+        }
+
+        window.onload = drawRectangle;
+    </script>
+</body>
+</html>
